@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة لغة الضاد</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Cairo:wght@400;600;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-color: #FAF8F5;
+            --text-color: #2D2D2D;
+            --primary-color: #8B5A2B;
+            --box-bg: #FFFFFF;
+            --box-shadow: 0 8px 16px rgba(0,0,0,0.05);
+            --transition: all 0.3s ease;
+        }
+
+        body.dark-mode {
+            --bg-color: #121212; 
+            --text-color: #F0F0F0;
+            --primary-color: #D4A373;
+            --box-bg: #1E1E1E;
+            --box-shadow: 0 8px 16px rgba(0,0,0,0.4);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 500px;
+            height: 500px;
+            background-image: url('images/dd11.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: 0.05;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        body.dark-mode::before {
+            opacity: 0.03;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: var(--transition);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        header {
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            z-index: 20;
+        }
+
+        .left-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-college {
+            /* تم تكبير شعار الكلية */
+            width: 160px;
+            height: auto;
+        }
+
+        .theme-btn {
+            background-color: var(--box-bg);
+            color: var(--text-color);
+            border: 2px solid var(--primary-color);
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: var(--box-shadow);
+            font-size: 0.9rem;
+        }
+
+        .theme-btn:hover {
+            background-color: var(--primary-color);
+            color: #fff;
+        }
+
+        .logo-uni {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            /* تم تكبير شعار الجامعة */
+            width: 160px;
+            height: auto;
+            z-index: 10;
+        }
+
+        .logo-user-container {
+            display: flex;
+            justify-content: center;
+            position: absolute;
+            top: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+        }
+
+        .logo-user {
+            /* تم تكبير الشعار الخاص بك ليتناسب مع الباقي */
+            width: 260px;
+            height: auto;
+        }
+
+        body.dark-mode .logo-user.invert-dark {
+            filter: invert(1) brightness(1.85);
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            text-align: center;
+            margin-top: 60px;
+            position: relative;
+            z-index: 15;
+        }
+
+        .welcome-text {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .main-title {
+            font-family: 'Amiri', serif;
+            font-size: 5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 60px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .sections-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            width: 100%;
+            max-width: 1000px;
+        }
+
+        .section-box {
+            background-color: var(--box-bg);
+            color: var(--text-color);
+            border-radius: 15px;
+            box-shadow: var(--box-shadow);
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            border: 2px solid transparent;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        .section-box.side {
+            padding: 30px 40px;
+            font-size: 1.5rem;
+            font-weight: 600;
+            flex: 1;
+        }
+
+        .section-box.center {
+            padding: 50px 60px;
+            font-size: 2.2rem;
+            font-weight: 800;
+            flex: 1.5;
+            transform: scale(1.05);
+            border-color: rgba(139, 90, 43, 0.2);
+        }
+
+        .section-box:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-color);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+        }
+        
+        .section-box.center:hover {
+            transform: scale(1.05) translateY(-10px);
+        }
+
+        @media (max-width: 768px) {
+            /* تم تكبير كل الشعارات هنا في الموبايل لتكون واضحة */
+            .logo-uni, .logo-college { width: 90px; top: 15px; }
+            .logo-uni { right: 15px; }
+            header { padding: 15px 20px; }
+            .left-section { gap: 8px; }
+            .logo-user { width: 170px; top: 60px; }
+            
+            .sections-container { flex-direction: column; }
+            .section-box.side, .section-box.center { width: 80%; transform: none; flex: none; }
+            .section-box.center:hover { transform: translateY(-10px); }
+            .main-title { font-size: 3.5rem; }
+            main { margin-top: 40px; }
+            .theme-btn { padding: 6px 10px; font-size: 0.8rem; }
+        }
+        
+        #dd11 {
+            max-width: 100%;
+            width: 250px;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <img src="images/una11.png" alt="شعار جامعة أسيوط" class="logo-uni">
+    
+    <div class="logo-user-container">
+        <img src="images/lord11.png" id="platformCenterLogo" alt="شعار علي" class="logo-user invert-dark">
+    </div>
+
+    <header>
+        <div></div>
+        <div class="left-section">
+            <img src="images/edu11.png" alt="شعار كلية التربية" class="logo-college">
+            <button type="button" id="themeToggleBtn" class="theme-btn">الوضع الداكن</button>
+        </div>
+    </header>
+
+    <main>
+        <p class="welcome-text">أهلاً بك في منصة</p>
+        <h1 class="main-title">لغة الضاد</h1>
+
+        <div class="sections-container">
+            <a href="javascript:void(0)" onclick="goToPage('summaries.html')" class="section-box side">الملخصات</a>
+            <a href="javascript:void(0)" onclick="goToPage('courses.html')" class="section-box center">المقررات</a>
+            <a href="javascript:void(0)" onclick="goToPage('exercises.html')" class="section-box side">التدريبات</a>
+        </div>
+    </main>
+
+    <script>
+        window.goToPage = function(targetPage) {
+            window.location.href = targetPage;
+        };
+
+        const themeToggleBtn = document.getElementById('themeToggleBtn');
+        const body = document.body;
+
+        try {
+            if (localStorage.getItem('theme') === 'dark') {
+                body.classList.add('dark-mode');
+                themeToggleBtn.textContent = 'الوضع الفاتح';
+            }
+            const rawSettings = localStorage.getItem('lughat_settings_v2');
+            if (rawSettings) {
+                const settings = JSON.parse(rawSettings);
+                const centerLogo = document.getElementById('platformCenterLogo');
+                if (centerLogo && settings.logoUrl && settings.logoUrl.trim() !== '') {
+                    centerLogo.src = settings.logoUrl;
+                    centerLogo.classList.remove('invert-dark');
+                }
+            }
+        } catch (e) {}
+
+        themeToggleBtn.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            
+            if (body.classList.contains('dark-mode')) {
+                try { localStorage.setItem('theme', 'dark'); } catch (e) {}
+                themeToggleBtn.textContent = 'الوضع الفاتح';
+            } else {
+                try { localStorage.setItem('theme', 'light'); } catch (e) {}
+                themeToggleBtn.textContent = 'الوضع الداكن';
+            }
+        });
+   </script>
+   <script type="module" src="firebase.js"></script>
+</body>
+</html>
+```eof
+
+جرب الكود الجديد واعمل حفظ وتحديث للصفحة (Ctrl + F5)، وقول لي إذا كان الحجم ده كده مثالي ولا محتاج نكبر أو نصغر أي حاجة تاني!

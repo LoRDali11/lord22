@@ -1,0 +1,29 @@
+body {
+    background-color: #F8F4E1; /* الخلفية بيج فاتح/أبيض سكري */
+    color: #4A3B32; /* النصوص باللون البني */
+}
+
+/* في حالة الوضع الداكن */
+body.dark-mode {
+    background-color: #5C4033; /* الخلفية بني داكن */
+    color: #F8F4E1;
+}
+
+/* تنسيق الحدود */
+.border-box {
+    border: 2px solid #D2B48C; /* الحدود باللون البيج */
+}
+
+/* تنسيق الأزرار */
+button, .btn {
+    background-color: #FFFFFF; /* الزر باللون الأبيض */
+    color: #4A3B32;
+    border: 1px solid #D2B48C;
+}
+#una11, #edu11 {
+width: 120px;
+}
+
+#lord11 {
+width: 200px;
+}

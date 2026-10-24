@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>التدريبات والاختبارات - منصة لغة الضاد</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Cairo:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+
+        :root {
+            --bg-color: #FAF8F5;
+            --text-color: #2D2D2D;
+            --text-muted: #6E655F;
+            --primary-color: #8B5A2B;
+            --primary-hover: #6F451E;
+            --primary-soft: rgba(139, 90, 43, 0.1);
+            --secondary-color: #9C6A41; 
+            --secondary-soft: rgba(156, 106, 65, 0.12);
+            --danger-color: #D32F2F;
+            --danger-soft: rgba(211, 47, 47, 0.1);
+            --warning-color: #D97706;
+            --info-color: #0284C7;
+            --box-bg: #FFFFFF;
+            --input-bg: #FAF8F5;
+            --box-shadow: 0 8px 16px rgba(0,0,0,0.05);
+            --box-shadow-hover: 0 12px 24px rgba(139, 90, 43, 0.15);
+            --transition: all 0.3s ease;
+            --border-color: #E0E0E0;
+        }
+
+        body.dark-mode {
+            --bg-color: #121212; 
+            --text-color: #F0F0F0;
+            --text-muted: #A8A096;
+            --primary-color: #D4A373;
+            --primary-hover: #E5B88B;
+            --primary-soft: rgba(212, 163, 115, 0.14);
+            --secondary-color: #E5B88B;
+            --secondary-soft: rgba(229, 184, 139, 0.15);
+            --danger-color: #EF5350;
+            --danger-soft: rgba(239, 83, 80, 0.15);
+            --warning-color: #F59E0B;
+            --info-color: #38BDF8;
+            --box-bg: #1E1E1E;
+            --input-bg: #161616;
+            --box-shadow: 0 8px 16px rgba(0,0,0,0.4);
+            --box-shadow-hover: 0 14px 28px rgba(0,0,0,0.65);
+            --border-color: #383838;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 500px;
+            height: 500px;
+            background-image: url('images/dd11.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: 0.05;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        body.dark-mode::before {
+            opacity: 0.03;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: var(--transition);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .site-header {
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            z-index: 20;
+            min-height: 120px;
+        }
+
+        .right-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .left-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .logo-uni {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            width: 160px;
+            height: auto;
+            z-index: 10;
+        }
+
+        .logo-college {
+            width: 160px;
+            height: auto;
+        }
+
+        .logo-user-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            top: 18px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            cursor: pointer;
+        }
+
+        .logo-user {
+            width: 260px;
+            height: auto;
+            object-fit: contain;
+            transition: var(--transition);
+        }
+
+        body.dark-mode .logo-user.invert-dark {
+            filter: invert(1) brightness(1.85) drop-shadow(0 2px 8px rgba(212,163,115,0.25));
+        }
+
+        .theme-btn, .btn {
+            background-color: var(--box-bg);
+            color: var(--text-color);
+            border: 2px solid var(--primary-color);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: var(--box-shadow);
+            font-size: 0.9rem;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .theme-btn:hover, .btn:hover, .btn.active-nav {
+            background-color: var(--primary-color);
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        .btn-danger-outline {
+            border-color: var(--danger-color);
+            color: var(--danger-color);
+        }
+        .btn-danger-outline:hover {
+            background-color: var(--danger-color);
+            color: #fff;
+        }
+
+        .top-nav-pills {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 35px auto 15px;
+            padding: 0 20px;
+            position: relative;
+            z-index: 18;
+        }
+
+        .container {
+            max-width: 1140px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 10px 20px 50px;
+            position: relative;
+            z-index: 15;
+            flex: 1;
+        }
+
+        .page-title {
+            font-family: 'Amiri', serif;
+            font-size: 3rem;
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.08);
+        }
+
+        .filter-bar-box {
+            background-color: var(--box-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 15px;
+            padding: 16px 20px;
+            box-shadow: var(--box-shadow);
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 14px;
+        }
+
+        .tabs-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .tab-btn {
+            background-color: transparent;
+            border: 2px solid var(--border-color);
+            color: var(--text-color);
+            padding: 10px 30px;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: inherit;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tab-btn:hover {
+            border-color: var(--primary-color);
+        }
+
+        .tab-btn.active {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            color: #fff;
+        }
+
+        .search-toolbar {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 240px;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 12px 18px;
+            border-radius: 12px;
+            border: 2px solid var(--border-color);
+            background-color: var(--box-bg);
+            color: var(--text-color);
+            font-family: inherit;
+            font-size: 0.95rem;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+        }
+
+        .search-box input:focus {
+            border-color: var(--primary-color);
+            outline: none;
+        }
+
+        .view-toggle {
+            display: flex;
+            background-color: var(--box-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+        }
+
+        .view-toggle button {
+            border: none;
+            background: transparent;
+            color: var(--text-color);
+            padding: 10px 16px;
+            font-family: inherit;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .view-toggle button.active {
+            background-color: var(--primary-color);
+            color: #fff;
+        }
+
+        .folder-breadcrumb {
+            background-color: var(--primary-soft);
+            border: 2px solid var(--primary-color);
+            border-radius: 12px;
+            padding: 12px 20px;
+            margin-bottom: 22px;
+            display: none;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .content-grid.list-view {
+            grid-template-columns: 1fr;
+        }
+
+        .card {
+            background-color: var(--box-bg);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: var(--box-shadow);
+            border: 2px solid transparent;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .content-grid.list-view .card {
+            flex-direction: row;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            border-color: var(--primary-color);
+            box-shadow: var(--box-shadow-hover);
+        }
+
+        .card-top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 14px;
+            gap: 8px;
+        }
+
+        .content-grid.list-view .card-top-bar {
+            margin-bottom: 0;
+            order: 2;
+        }
+
+        .icon-actions {
+            display: flex;
+            gap: 6px;
+        }
+
+        .icon-btn {
+            padding: 4px 10px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background-color: var(--input-bg);
+            color: var(--text-color);
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.82rem;
+            font-family: inherit;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .icon-btn:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+            transform: scale(1.07);
+        }
+
+        .card-center {
+            text-align: center;
+            margin: 6px 0 18px;
+        }
+
+        .content-grid.list-view .card-center {
+            text-align: right;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin: 0;
+            flex: 1;
+        }
+
+        .card-title {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+            font-weight: bold;
+            line-height: 1.4;
+        }
+
+        .card-meta {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .content-grid.list-view .card-meta {
+            justify-content: flex-start;
+        }
+
+        .meta-pill {
+            background-color: var(--primary-soft);
+            color: var(--primary-color);
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-weight: 700;
+        }
+
+        .view-btn {
+            background-color: var(--primary-color);
+            color: #fff;
+            padding: 12px;
+            text-align: center;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            display: block;
+            border: none;
+            width: 100%;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 1rem;
+        }
+
+        .content-grid.list-view .view-btn {
+            width: auto;
+            min-width: 150px;
+            order: 3;
+        }
+
+        .view-btn:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .folder-view-btn {
+            background-color: var(--secondary-color);
+        }
+        .folder-view-btn:hover {
+            opacity: 0.92;
+        }
+
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 55px 20px;
+            background-color: var(--box-bg);
+            border: 2px dashed var(--border-color);
+            border-radius: 15px;
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        footer.site-footer {
+            text-align: center;
+            padding: 18px;
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border-color);
+            margin-top: auto;
+            position: relative;
+            z-index: 15;
+        }
+
+        @media (max-width: 768px) {
+            .site-header { padding: 15px 18px; min-height: 95px; }
+            .logo-uni, .logo-college { width: 90px; top: 15px; }
+            .logo-uni { right: 15px; }
+            .logo-user { width: 170px; top: 60px;}
+            .page-title { font-size: 2.3rem; margin-bottom: 20px; }
+            .top-nav-pills { margin-top: 25px; }
+            .theme-btn, .btn { padding: 6px 12px; font-size: 0.82rem; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="right-section">
+            <img src="images/una11.png" alt="شعار جامعة أسيوط" class="logo-uni" title="جامعة أسيوط">
+        </div>
+
+        <div class="logo-user-container" onclick="goToPage('index.html')" title="العودة للرئيسية - منصة لغة الضاد">
+            <img src="images/lord11.png" id="platformCenterLogo" alt="شعار علي جلال" class="logo-user invert-dark">
+        </div>
+
+        <div class="left-section">
+            <img src="images/edu11.png" alt="شعار كلية التربية" class="logo-college" title="كلية التربية - جامعة أسيوط">
+            <button type="button" id="themeToggleBtn" class="theme-btn">الوضع الداكن</button>
+        </div>
+    </header>
+
+    <nav class="top-nav-pills" aria-label="التنقل الرئيسي">
+        <button type="button" onclick="goToPage('index.html')" class="btn">الرئيسية</button>
+        <button type="button" onclick="goToPage('courses.html')" class="btn">المقررات</button>
+        <button type="button" onclick="goToPage('summaries.html')" class="btn">الملخصات</button>
+        <button type="button" onclick="goToPage('exercises.html')" class="btn active-nav">التدريبات</button>
+    </nav>
+
+    <div class="container">
+        <h1 class="page-title">التدريبات والاختبارات</h1>
+
+        <div class="filter-bar-box">
+            <div class="tabs-group">
+                <button type="button" class="tab-btn active" id="term1Btn" onclick="setTerm('الترم الأول')">الترم الأول</button>
+                <button type="button" class="tab-btn" id="term2Btn" onclick="setTerm('الترم الثاني')">الترم الثاني</button>
+            </div>
+        </div>
+
+        <div class="search-toolbar">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="ابحث عن اسم التدريب أو الاختبار..." oninput="renderSectionContent()">
+            </div>
+
+            <div class="view-toggle">
+                <button type="button" id="gridViewBtn" class="active" onclick="setViewMode('grid')">شبكة</button>
+                <button type="button" id="listViewBtn" onclick="setViewMode('list')">قائمة</button>
+            </div>
+        </div>
+
+        <div class="folder-breadcrumb" id="folderBreadcrumb">
+            <div>
+                <span style="font-weight:800; color:var(--primary-color);">المجلد المفتوح: </span>
+                <span id="activeFolderTitle" style="font-weight:700;"></span>
+            </div>
+            <button type="button" class="btn btn-danger-outline" onclick="closeFolderView()">← العودة للقائمة الرئيسية</button>
+        </div>
+
+        <div class="content-grid" id="mainContentGrid"></div>
+    </div>
+
+    <footer class="site-footer">
+        منصة لغة الضاد التعليمية — قسم التدريبات | كلية التربية، جامعة أسيوط
+    </footer>
+
+    <script>
+        const STORAGE_KEYS = {
+            FOLDERS: 'lughat_folders_v2',
+            FILES: 'lughat_files_v2',
+            SETTINGS: 'lughat_settings_v2'
+        };
+
+        const DEFAULT_FOLDERS = [
+            { id: 'fld_1', name: 'محاضرات النحو والصرف', section: 'المقررات', term: 'الترم الأول', order: 1 },
+            { id: 'fld_2', name: 'محاضرات الأدب العربي والبلاغة', section: 'المقررات', term: 'الترم الأول', order: 2 },
+            { id: 'fld_3', name: 'محاضرات فقه اللغة والصوتيات', section: 'المقررات', term: 'الترم الثاني', order: 1 },
+            { id: 'fld_4', name: 'مراجعات ليلة الامتحان الشاملة', section: 'الملخصات', term: 'الترم الأول', order: 1 },
+            { id: 'fld_5', name: 'ملخصات القواعد البلاغية والعروض', section: 'الملخصات', term: 'الترم الثاني', order: 1 },
+            { id: 'fld_6', name: 'بنك أسئلة النحو التطبيقي', section: 'التدريبات', term: 'الترم الأول', order: 1 },
+            { id: 'fld_7', name: 'اختبارات الأعوام السابقة (تربية أسيوط)', section: 'التدريبات', term: 'الترم الثاني', order: 1 }
+        ];
+
+        const DEFAULT_FILES = [
+            { id: 'fil_1', name: 'كتاب النحو الوافي - باب المبتدأ والخبر وتطبيقاته', link: 'https://drive.google.com/', section: 'المقررات', term: 'الترم الأول', folder: 'محاضرات النحو والصرف', type: 'PDF', order: 1 },
+            { id: 'fil_2', name: 'شرح كان وأخواتها وإن وأخواتها بالتفصيل', link: 'https://drive.google.com/', section: 'المقررات', term: 'الترم الأول', folder: 'محاضرات النحو والصرف', type: 'فيديو', order: 2 },
+            { id: 'fil_3', name: 'تاريخ الأدب الجاهلي وخصائص القصيدة العربية', link: 'https://drive.google.com/', section: 'المقررات', term: 'الترم الأول', folder: 'محاضرات الأدب العربي والبلاغة', type: 'PDF', order: 1 },
+            { id: 'fil_4', name: 'مقرر علم البيان والبديع - كلية التربية جامعة أسيوط', link: 'https://drive.google.com/', section: 'المقررات', term: 'الترم الأول', folder: 'الرئيسية', type: 'PDF', order: 1 },
+            { id: 'fil_5', name: 'مدخل إلى علم العروض والقافية وأوزان الشعر', link: 'https://drive.google.com/', section: 'المقررات', term: 'الترم الأول', folder: 'الرئيسية', type: 'فيديو', order: 2 },
+            { id: 'fil_6', name: 'فقه اللغة العربية وخصائص الأصوات والمعاجم', link: 'https://drive.google.com/', section: 'المقررات', term: 'الترم الثاني', folder: 'محاضرات فقه اللغة والصوتيات', type: 'PDF', order: 1 },
+            { id: 'fil_7', name: 'الأدب الإسلامي والأموي - تحليل نصوص مختارة', link: 'https://drive.google.com/', section: 'المقررات', term: 'الترم الثاني', folder: 'الرئيسية', type: 'PDF', order: 1 },
+            { id: 'fil_8', name: 'المنصوبات والمجرورات في النحو العربي', link: 'https://drive.google.com/', section: 'المقررات', term: 'الترم الثاني', folder: 'الرئيسية', type: 'فيديو', order: 2 },
+            
+            { id: 'fil_9', name: 'ملخص خرائط ذهنية لجميع أبواب النحو (الترم الأول)', link: 'https://drive.google.com/', section: 'الملخصات', term: 'الترم الأول', folder: 'مراجعات ليلة الامتحان الشاملة', type: 'PDF', order: 1 },
+            { id: 'fil_10', name: 'الخلاصة الذهبية في البلاغة وعلم البيان (٢٠ صفحة)', link: 'https://drive.google.com/', section: 'الملخصات', term: 'الترم الأول', folder: 'مراجعات ليلة الامتحان الشاملة', type: 'PDF', order: 2 },
+            { id: 'fil_11', name: 'ملخص مدارس الأدب العربي والشواهد الشعرية المقررة', link: 'https://drive.google.com/', section: 'الملخصات', term: 'الترم الأول', folder: 'الرئيسية', type: 'PDF', order: 1 },
+            { id: 'fil_12', name: 'جداول تصريف الأفعال والأوزان الصرفية القياسية', link: 'https://drive.google.com/', section: 'الملخصات', term: 'الترم الأول', folder: 'الرئيسية', type: 'PDF', order: 2 },
+            { id: 'fil_13', name: 'ملخص بحور الشعر الستة عشر ومفاتيحها التفعيلية', link: 'https://drive.google.com/', section: 'الملخصات', term: 'الترم الثاني', folder: 'ملخصات القواعد البلاغية والعروض', type: 'PDF', order: 1 },
+            { id: 'fil_14', name: 'مذكرة المراجعة النهائية في فقه اللغة وعلم الدلالة', link: 'https://drive.google.com/', section: 'الملخصات', term: 'الترم الثاني', folder: 'الرئيسية', type: 'PDF', order: 1 },
+            
+            { id: 'fil_15', name: '١٠٠ سؤال اختيار من متعدد وإعراب تطبيقي على النواسخ', link: 'https://drive.google.com/', section: 'التدريبات', term: 'الترم الأول', folder: 'بنك أسئلة النحو التطبيقي', type: 'PDF', order: 1 },
+            { id: 'fil_16', name: 'تدريبات إعراب أبيات شعرية من المعلقات السبع مع الحل', link: 'https://drive.google.com/', section: 'التدريبات', term: 'الترم الأول', folder: 'بنك أسئلة النحو التطبيقي', type: 'PDF', order: 2 },
+            { id: 'fil_17', name: 'اختبار تفاعلي شامل في الصور البيانية والمحسنات البديعية', link: 'https://drive.google.com/', section: 'التدريبات', term: 'الترم الأول', folder: 'الرئيسية', type: 'رابط خارجي', order: 1 },
+            { id: 'fil_18', name: 'تدريبات التقطيع العروضي واستخراج البحور الشعرية', link: 'https://drive.google.com/', section: 'التدريبات', term: 'الترم الأول', folder: 'الرئيسية', type: 'PDF', order: 2 },
+            { id: 'fil_19', name: 'نماذج امتحانات كلية التربية جامعة أسيوط المجابة (٢٠٢٢ - ٢٠٢٥)', link: 'https://drive.google.com/', section: 'التدريبات', term: 'الترم الثاني', folder: 'اختبارات الأعوام السابقة (تربية أسيوط)', type: 'PDF', order: 1 },
+            { id: 'fil_20', name: 'تطبيقات عملية شاملة على المنصوبات والتوابع النحوية', link: 'https://drive.google.com/', section: 'التدريبات', term: 'الترم الثاني', folder: 'الرئيسية', type: 'PDF', order: 1 }
+        ];
+
+        const DEFAULT_SETTINGS = {
+            logoUrl: '',
+            adminEmail: 'ail112glal@gmail.com',
+            welcomeSubtitle: 'أهلاً بك يا مالك الأكاديمية العظيم'
+        };
+
+        function safeGet(key, fallback) {
+            try {
+                const raw = localStorage.getItem(key);
+                return raw ? JSON.parse(raw) : fallback;
+            } catch (e) {
+                return fallback;
+            }
+        }
+
+        function safeSet(key, val) {
+            try {
+                localStorage.setItem(key, JSON.stringify(val));
+            } catch (e) {}
+        }
+
+        function normalizeSection(sec) {
+            if (sec === 'التلخيصات' || sec === 'الملخصات') return 'الملخصات';
+            return sec;
+        }
+
+        function initStorageData() {
+            if (!safeGet(STORAGE_KEYS.FOLDERS, null)) safeSet(STORAGE_KEYS.FOLDERS, DEFAULT_FOLDERS);
+            if (!safeGet(STORAGE_KEYS.FILES, null)) safeSet(STORAGE_KEYS.FILES, DEFAULT_FILES);
+            if (!safeGet(STORAGE_KEYS.SETTINGS, null)) safeSet(STORAGE_KEYS.SETTINGS, DEFAULT_SETTINGS);
+        }
+
+        initStorageData();
+
+        window.goToPage = function(targetPage) {
+            window.location.href = targetPage;
+        };
+
+        window.showToast = function(message) {
+            const msg = document.createElement('div');
+            msg.style.cssText = `position:fixed; top:20px; left:20px; background:var(--secondary-color); color:white; padding:13px 22px; border-radius:12px; z-index:9999; box-shadow: 0 8px 20px rgba(0,0,0,0.22); font-weight:700; font-family:'Cairo',sans-serif; transition: opacity 0.4s;`;
+            msg.innerText = message;
+            document.body.appendChild(msg);
+            setTimeout(() => {
+                msg.style.opacity = '0';
+                setTimeout(() => msg.remove(), 400);
+            }, 2800);
+        };
+
+        function applySharedHeaderAndTheme() {
+            const body = document.body;
+            const themeBtn = document.getElementById('themeToggleBtn');
+            let savedTheme = 'light';
+            try { savedTheme = localStorage.getItem('theme') || 'light'; } catch(e) {}
+
+            if (savedTheme === 'dark') {
+                body.classList.add('dark-mode');
+                if (themeBtn) themeBtn.textContent = 'الوضع الفاتح';
+            } else {
+                body.classList.remove('dark-mode');
+                if (themeBtn) themeBtn.textContent = 'الوضع الداكن';
+            }
+
+            if (themeBtn) {
+                themeBtn.onclick = () => {
+                    body.classList.toggle('dark-mode');
+                    const isDark = body.classList.contains('dark-mode');
+                    try { localStorage.setItem('theme', isDark ? 'dark' : 'light'); } catch(e) {}
+                    themeBtn.textContent = isDark ? 'الوضع الفاتح' : 'الوضع الداكن';
+                };
+            }
+
+            const settings = safeGet(STORAGE_KEYS.SETTINGS, DEFAULT_SETTINGS);
+            const userLogoEl = document.getElementById('platformCenterLogo');
+            if (userLogoEl && settings && settings.logoUrl && settings.logoUrl.trim() !== '') {
+                userLogoEl.src = settings.logoUrl;
+                userLogoEl.classList.remove('invert-dark');
+            }
+        }
+
+        const CURRENT_SECTION = 'التدريبات';
+        let currentTerm = 'الترم الأول';
+        let currentFolder = 'الرئيسية';
+        let viewMode = 'grid';
+
+        window.setTerm = function(term) {
+            currentTerm = term;
+            currentFolder = 'الرئيسية';
+            document.getElementById('term1Btn').classList.toggle('active', term === 'الترم الأول');
+            document.getElementById('term2Btn').classList.toggle('active', term === 'الترم الثاني');
+            renderSectionContent();
+        };
+
+        window.setViewMode = function(mode) {
+            viewMode = mode;
+            const grid = document.getElementById('mainContentGrid');
+            grid.classList.toggle('list-view', mode === 'list');
+            document.getElementById('gridViewBtn').classList.toggle('active', mode === 'grid');
+            document.getElementById('listViewBtn').classList.toggle('active', mode === 'list');
+        };
+
+        window.openFolderView = function(folderName) {
+            currentFolder = folderName;
+            renderSectionContent();
+        };
+
+        window.closeFolderView = function() {
+            currentFolder = 'الرئيسية';
+            renderSectionContent();
+        };
+
+        window.copyItemLink = function(link, name) {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(link).then(() => {
+                    showToast(`تم نسخ رابط "${name}" بنجاح`);
+                }).catch(() => {
+                    showToast(`الرابط: ${link}`);
+                });
+            } else {
+                showToast(`الرابط: ${link}`);
+            }
+        };
+
+        window.renderSectionContent = function() {
+            const allFolders = safeGet(STORAGE_KEYS.FOLDERS, DEFAULT_FOLDERS);
+            const allFiles = safeGet(STORAGE_KEYS.FILES, DEFAULT_FILES);
+            const query = (document.getElementById('searchInput').value || '').trim().toLowerCase();
+
+            const breadcrumb = document.getElementById('folderBreadcrumb');
+            if (currentFolder !== 'الرئيسية') {
+                breadcrumb.style.display = 'flex';
+                document.getElementById('activeFolderTitle').textContent = currentFolder;
+            } else {
+                breadcrumb.style.display = 'none';
+            }
+
+            const grid = document.getElementById('mainContentGrid');
+            grid.innerHTML = '';
+
+            let foldersToShow = [];
+            let filesToShow = [];
+
+            if (currentFolder !== 'الرئيسية') {
+                filesToShow = allFiles.filter(f =>
+                    normalizeSection(f.section) === CURRENT_SECTION &&
+                    f.term === currentTerm &&
+                    f.folder === currentFolder &&
+                    (!query || f.name.toLowerCase().includes(query))
+                );
+            } else {
+                foldersToShow = allFolders.filter(f =>
+                    normalizeSection(f.section) === CURRENT_SECTION &&
+                    f.term === currentTerm &&
+                    (!query || f.name.toLowerCase().includes(query))
+                );
+                filesToShow = allFiles.filter(f =>
+                    normalizeSection(f.section) === CURRENT_SECTION &&
+                    f.term === currentTerm &&
+                    (query ? f.name.toLowerCase().includes(query) : (!f.folder || f.folder === 'الرئيسية'))
+                );
+            }
+
+            foldersToShow.sort((a, b) => (Number(a.order) || 0) - (Number(b.order) || 0));
+            filesToShow.sort((a, b) => (Number(a.order) || 0) - (Number(b.order) || 0));
+
+            if (foldersToShow.length === 0 && filesToShow.length === 0) {
+                grid.innerHTML = `<div class="empty-state">لا توجد عناصر مطابقة في ${currentTerm} حالياً.</div>`;
+                return;
+            }
+
+            foldersToShow.forEach(folder => {
+                const insideCount = allFiles.filter(f =>
+                    normalizeSection(f.section) === CURRENT_SECTION &&
+                    f.term === currentTerm &&
+                    f.folder === folder.name
+                ).length;
+
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `
+                    <div class="card-top-bar">
+                        <span class="meta-pill">مجلد تدريبات</span>
+                        <span class="meta-pill">${insideCount} ملفات</span>
+                    </div>
+                    <div class="card-center">
+                        <div>
+                            <div class="card-title">${folder.name}</div>
+                            <div class="card-meta">
+                                <span>${folder.term}</span>
+                                <span>•</span>
+                                <span>قسم ${CURRENT_SECTION}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="view-btn folder-view-btn">فتح المجلد</button>
+                `;
+                card.querySelector('button').onclick = () => openFolderView(folder.name);
+                grid.appendChild(card);
+            });
+
+            filesToShow.forEach(file => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `
+                    <div class="card-top-bar">
+                        <div class="icon-actions">
+                            <button type="button" class="icon-btn" title="نسخ الرابط" data-copy="${file.id}">نسخ الرابط</button>
+                        </div>
+                        <span class="meta-pill">${file.type || 'اختبار'}</span>
+                    </div>
+                    <div class="card-center">
+                        <div>
+                            <div class="card-title">${file.name}</div>
+                            <div class="card-meta">
+                                <span>${file.term}</span>
+                                ${file.folder && file.folder !== 'الرئيسية' ? `<span>• ${file.folder}</span>` : ''}
+                            </div>
+                        </div>
+                    </div>
+                    <a href="${file.link}" target="_blank" rel="noopener noreferrer" class="view-btn">بدء التدريب</a>
+                `;
+                card.querySelector('[data-copy]').onclick = () => copyItemLink(file.link, file.name);
+                grid.appendChild(card);
+            });
+        };
+
+        applySharedHeaderAndTheme();
+        renderSectionContent();
+    </script>
+</body>
+</html>
+```eof
+
+قم بنسخ هذا الكود واستبدله في ملف `exercises.html`. الآن ستعمل جميع الأزرار (الترمين، الوضع الداكن، العرض كقائمة، ونسخ الروابط) بشكل سليم وخالي من أي أخطاء!
